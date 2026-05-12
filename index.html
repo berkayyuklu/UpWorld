@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPWORLD – Freelance Platformu</title>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="url(#lg1)"/>
+          <path d="M8 20 L13 11 L16 17 L19 13 L24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="24" cy="10" r="3" fill="#FFD600"/>
+          <defs><linearGradient id="lg1" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#0F1F3D"/><stop offset="100%" stop-color="#00C896"/></linearGradient></defs>
+        </svg>
+      </div>
+      <span class="logo-text">UP<span>WORLD</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="freelancer.html" class="nav-link fl-link">Freelancer Bul</a>
+      <a href="employer.html" class="nav-link em-link">İş İlanları</a>
+      <a href="#how" class="nav-link">Nasıl Çalışır?</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-outline" onclick="openModal('loginModal')">Giriş Yap</button>
+      <button class="btn-primary" onclick="openModal('registerModal')">Üye Ol</button>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+  <div class="mobile-menu hidden" id="mobileMenu">
+    <a href="freelancer.html">Freelancer Bul</a>
+    <a href="employer.html">İş İlanları</a>
+    <button onclick="openModal('loginModal')">Giriş Yap</button>
+    <button onclick="openModal('registerModal')">Üye Ol</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-shapes">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+    <div class="shape s3"></div>
+  </div>
+  <div class="container hero-inner">
+    <div class="hero-badge">🚀 Türkiye'nin En Modern Freelance Platformu</div>
+    <h1 class="hero-title">Yeteneği İşle,<br><span class="gradient-text">Dünyayı Buluştur</span></h1>
+    <p class="hero-sub">Freelancer'lar en iyi projelere ulaşır. İşverenler en yetenekli kişileri bulur.<br>İki dünya, tek platform: <strong>UPWORLD</strong></p>
+    <div class="hero-search">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="heroSearch" placeholder="React developer, logo tasarımı, içerik yazarlığı...">
+        <button class="search-btn" onclick="doSearch()">Ara</button>
+      </div>
+      <div class="popular-tags">
+        <span>Popüler:</span>
+        <button onclick="searchTag('Web Geliştirme')">Web Geliştirme</button>
+        <button onclick="searchTag('UI/UX Tasarım')">UI/UX Tasarım</button>
+        <button onclick="searchTag('Mobil Uygulama')">Mobil Uygulama</button>
+        <button onclick="searchTag('SEO')">SEO</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">12K+</span><span class="stat-label">Freelancer</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">8K+</span><span class="stat-label">Proje Tamamlandı</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Ortalama Puan</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Memnuniyet</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL PORTAL -->
+<section class="dual-portal">
+  <div class="container">
+    <div class="portal-grid">
+      <div class="portal-card freelancer-portal" onclick="window.location='freelancer.html'">
+        <div class="portal-icon">🟢</div>
+        <h2>Freelancer Portalı</h2>
+        <p>İlan ver, yeteneklerini sergile, en iyi projeleri kazan. Profesyonel profilini oluştur.</p>
+        <ul>
+          <li>✓ Detaylı profil & portföy</li>
+          <li>✓ Teklif ver & müzakere et</li>
+          <li>✓ Güvenli ödeme sistemi</li>
+          <li>✓ İş geçmişi & referanslar</li>
+        </ul>
+        <button class="portal-btn fl-btn">Freelancer Olarak Başla →</button>
+      </div>
+      <div class="portal-divider">
+        <div class="divider-logo">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="url(#lg2)"/>
+            <path d="M8 20 L13 11 L16 17 L19 13 L24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="24" cy="10" r="3" fill="#FFD600"/>
+            <defs><linearGradient id="lg2" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#0F1F3D"/><stop offset="100%" stop-color="#00C896"/></linearGradient></defs>
+          </svg>
+          <span>VS</span>
+        </div>
+      </div>
+      <div class="portal-card employer-portal" onclick="window.location='employer.html'">
+        <div class="portal-icon">🟡</div>
+        <h2>İşveren Portalı</h2>
+        <p>Görev ver, tek tıkla hizmet satın al. Kaliteli freelancer'ları hızla bul ve işe al.</p>
+        <ul>
+          <li>✓ Hızlı görev yayınla</li>
+          <li>✓ Tek tıkla satın al</li>
+          <li>✓ Teklif karşılaştır</li>
+          <li>✓ Milestones & güvence</li>
+        </ul>
+        <button class="portal-btn em-btn">İşveren Olarak Başla →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories-section" id="categories">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Tüm Kategoriler</h2>
+      <p>Her alanda uzman freelancer bul veya proje yayınla</p>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</section>
+
+<!-- FEATURED FREELANCERS -->
+<section class="featured-section fl-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>⭐ Öne Çıkan Freelancer'lar</h2>
+        <p>En yüksek puanlı, en deneyimli profesyoneller</p>
+      </div>
+      <a href="freelancer.html" class="see-all fl-link">Tümünü Gör →</a>
+    </div>
+    <div class="freelancer-grid" id="featuredFreelancers"></div>
+  </div>
+</section>
+
+<!-- FEATURED JOBS -->
+<section class="featured-section em-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>🔥 Öne Çıkan İş İlanları</h2>
+        <p>En güncel, en iyi bütçeli projeler seni bekliyor</p>
+      </div>
+      <a href="employer.html" class="see-all em-link">Tümünü Gör →</a>
+    </div>
+    <div class="jobs-grid" id="featuredJobs"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Nasıl Çalışır?</h2>
+      <p>3 adımda başla, hemen kazan veya hizmet al</p>
+    </div>
+    <div class="how-tabs">
+      <button class="how-tab active" onclick="switchHow('fl',this)">Freelancer İçin</button>
+      <button class="how-tab" onclick="switchHow('em',this)">İşveren İçin</button>
+    </div>
+    <div class="how-steps" id="howSteps"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Kullanıcılarımız Ne Diyor?</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"UPWORLD sayesinde 3 yılda 200+ proje tamamladım. Başka platformlara kıyasla hem daha modern hem de çok daha adil komisyon oranları."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:#00C896">AY</div><div><strong>Ahmet Y.</strong><span>Full-Stack Developer</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Startup'ımız için 2 haftada mükemmel bir ekip bulduk. Teklif sistemi harika, milestone yapısı sayesinde hiç sorun yaşamadık."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:#FFD600;color:#000">MK</div><div><strong>Murat K.</strong><span>Kurucu, TechRetail</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Portfolyomi burada oluşturduktan sonra uluslararası müşteriler de gelmeye başladı. Arayüz çok sezgisel, her şey çok kolay."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:#4F46E5">SK</div><div><strong>Selin K.</strong><span>UI/UX Designer</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <h2>UPWORLD'e Katıl</h2>
+      <p>12.000+ freelancer ve 5.000+ işveren seni bekliyor</p>
+      <div class="cta-btns">
+        <button class="cta-fl" onclick="openModal('registerModal')">Freelancer Olarak Üye Ol</button>
+        <button class="cta-em" onclick="openModal('registerModal')">İşveren Olarak Üye Ol</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="url(#lg3)"/>
+            <path d="M8 20 L13 11 L16 17 L19 13 L24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="24" cy="10" r="3" fill="#FFD600"/>
+            <defs><linearGradient id="lg3" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#0F1F3D"/><stop offset="100%" stop-color="#00C896"/></linearGradient></defs>
+          </svg>
+        </div>
+        <span class="logo-text">UP<span>WORLD</span></span>
+      </div>
+      <p>Yeteneği işle, dünyayı buluştur.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h4>Platform</h4><a href="freelancer.html">Freelancer Bul</a><a href="employer.html">İş Bul</a><a href="#">Kategoriler</a></div>
+      <div class="footer-col"><h4>Şirket</h4><a href="#">Hakkımızda</a><a href="#">Blog</a><a href="#">Kariyer</a></div>
+      <div class="footer-col"><h4>Destek</h4><a href="#">Yardım Merkezi</a><a href="#">İletişim</a><a href="#">Güvenlik</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 UPWORLD. Tüm hakları saklıdır.</p></div>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="modal-logo"><svg width="40" height="40" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="url(#mlg)"/><path d="M8 20 L13 11 L16 17 L19 13 L24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="24" cy="10" r="3" fill="#FFD600"/><defs><linearGradient id="mlg" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#0F1F3D"/><stop offset="100%" stop-color="#00C896"/></linearGradient></defs></svg></div>
+    <h2 class="modal-title">UPWORLD'e Giriş Yap</h2>
+    <p class="modal-sub">Hesabınla devam et</p>
+    <button class="google-btn" id="loginGoogleBtn" onclick="handleGoogleLogin()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google ile Giriş Yap
+    </button>
+    <div class="modal-divider"><span>veya</span></div>
+    <div class="form-group"><label>E-posta</label><input type="email" placeholder="ornek@email.com" id="loginEmail"></div>
+    <div class="form-group"><label>Şifre</label><input type="password" placeholder="••••••••" id="loginPass"></div>
+    <button class="form-submit" onclick="handleEmailLogin()">Giriş Yap</button>
+    <p class="modal-footer-text">Hesabın yok mu? <button onclick="switchModal('loginModal','registerModal')">Üye Ol</button></p>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('registerModal')">✕</button>
+    <h2 class="modal-title">UPWORLD'e Katıl</h2>
+    <p class="modal-sub">Ücretsiz hesap oluştur</p>
+    <div class="role-select">
+      <div class="role-card" id="roleFL" onclick="selectRole('freelancer')">
+        <span>👨‍💻</span><strong>Freelancer</strong><small>Yeteneklerimi sat</small>
+      </div>
+      <div class="role-card" id="roleEM" onclick="selectRole('employer')">
+        <span>🏢</span><strong>İşveren</strong><small>Hizmet satın al</small>
+      </div>
+    </div>
+    <button class="google-btn" onclick="handleGoogleRegister()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google ile Kayıt Ol
+    </button>
+    <p class="modal-footer-text">Zaten üye misin? <button onclick="switchModal('registerModal','loginModal')">Giriş Yap</button></p>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
