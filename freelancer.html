@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPWORLD – Freelancer Portalı</title>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/freelancer.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="fl-theme">
+
+<!-- NAVBAR -->
+<nav class="navbar fl-navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="url(#flnav)"/>
+          <path d="M8 20 L13 11 L16 17 L19 13 L24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="24" cy="10" r="3" fill="#FFD600"/>
+          <defs><linearGradient id="flnav" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#0F1F3D"/><stop offset="100%" stop-color="#00C896"/></linearGradient></defs>
+        </svg>
+      </div>
+      <span class="logo-text">UP<span>WORLD</span></span>
+    </a>
+    <div class="fl-nav-tabs">
+      <button class="fl-nav-tab active" onclick="setView('browse')">Freelancer Bul</button>
+      <button class="fl-nav-tab" onclick="setView('post')">İlan Ver</button>
+      <button class="fl-nav-tab" onclick="setView('dashboard')">Panelim</button>
+    </div>
+    <div class="nav-actions" id="flNavActions">
+      <a href="employer.html" class="switch-btn">İşveren Portalı →</a>
+      <button class="fl-login-btn" onclick="openModal('flLoginModal')">Giriş / Üye Ol</button>
+    </div>
+  </div>
+</nav>
+
+<!-- FL HERO -->
+<section class="fl-hero">
+  <div class="container">
+    <div class="fl-hero-content">
+      <div class="fl-hero-badge">🟢 Freelancer Portalı</div>
+      <h1>Doğru Yetenegi,<br><span>Anında Bul</span></h1>
+      <p>12.000+ uzman freelancer arasından filtrele, profilleri incele, hemen işe al.</p>
+      <div class="fl-search-bar">
+        <select id="flCatFilter" onchange="filterFreelancers()">
+          <option value="">Tüm Kategoriler</option>
+          <option>Web Geliştirme</option>
+          <option>Tasarım</option>
+          <option>Mobil Uygulama</option>
+          <option>İçerik & Metin</option>
+          <option>Veri Bilimi</option>
+          <option>Dijital Pazarlama</option>
+        </select>
+        <input type="text" id="flSearchInput" placeholder="Beceri, unvan veya isim ara..." onkeyup="filterFreelancers()">
+        <button onclick="filterFreelancers()">Ara</button>
+      </div>
+    </div>
+    <div class="fl-hero-stats">
+      <div class="fl-stat"><span>12K+</span><small>Freelancer</small></div>
+      <div class="fl-stat"><span>98%</span><small>Başarı Oranı</small></div>
+      <div class="fl-stat"><span>4.9★</span><small>Ort. Puan</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- BROWSE VIEW -->
+<section class="fl-main" id="viewBrowse">
+  <div class="container">
+    <div class="fl-layout">
+      <!-- FILTERS SIDEBAR -->
+      <aside class="fl-sidebar">
+        <div class="fl-filter-card">
+          <h3>Filtreler</h3>
+          <div class="filter-group">
+            <label>Kategori</label>
+            <div class="filter-options" id="catFilters">
+              <label class="filter-opt"><input type="checkbox" value="Web" onchange="filterFreelancers()"> Web Geliştirme</label>
+              <label class="filter-opt"><input type="checkbox" value="Tasarım" onchange="filterFreelancers()"> Tasarım</label>
+              <label class="filter-opt"><input type="checkbox" value="Mobil" onchange="filterFreelancers()"> Mobil Uygulama</label>
+              <label class="filter-opt"><input type="checkbox" value="İçerik" onchange="filterFreelancers()"> İçerik & Metin</label>
+              <label class="filter-opt"><input type="checkbox" value="Veri" onchange="filterFreelancers()"> Veri Bilimi</label>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Deneyim Seviyesi</label>
+            <div class="filter-options">
+              <label class="filter-opt"><input type="radio" name="level" value="" onchange="filterFreelancers()"> Tümü</label>
+              <label class="filter-opt"><input type="radio" name="level" value="Expert" onchange="filterFreelancers()"> Uzman</label>
+              <label class="filter-opt"><input type="radio" name="level" value="Intermediate" onchange="filterFreelancers()"> Orta</label>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Saatlik Ücret (₺)</label>
+            <div class="range-row">
+              <input type="number" id="minRate" placeholder="Min" onchange="filterFreelancers()">
+              <span>–</span>
+              <input type="number" id="maxRate" placeholder="Max" onchange="filterFreelancers()">
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Puan</label>
+            <select id="ratingFilter" onchange="filterFreelancers()">
+              <option value="">Tümü</option>
+              <option value="4.9">4.9+</option>
+              <option value="4.7">4.7+</option>
+              <option value="4.5">4.5+</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-opt"><input type="checkbox" id="onlineFilter" onchange="filterFreelancers()"> Sadece Çevrimiçi</label>
+          </div>
+          <button class="fl-clear-btn" onclick="clearFilters()">Filtreleri Temizle</button>
+        </div>
+      </aside>
+
+      <!-- FREELANCER LISTINGS -->
+      <div class="fl-listings">
+        <div class="fl-list-header">
+          <span id="flResultCount">6 freelancer bulundu</span>
+          <select id="flSort" onchange="sortFreelancers()">
+            <option value="rating">En Yüksek Puan</option>
+            <option value="rate-asc">Ücret: Düşükten Yükseğe</option>
+            <option value="rate-desc">Ücret: Yüksekten Düşüğe</option>
+            <option value="reviews">En Çok Yorum</option>
+          </select>
+        </div>
+        <div class="fl-cards-grid" id="flCardsGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST VIEW (Freelancer İlan Ver) -->
+<section class="fl-main hidden" id="viewPost">
+  <div class="container">
+    <div class="post-layout">
+      <div class="post-form-card">
+        <h2>Freelancer İlanı Ver</h2>
+        <p class="post-sub">Profilini detaylı doldur, işverenlerin seni bulsun</p>
+        <div class="post-steps">
+          <div class="post-step active" id="pstep1">1 Temel Bilgiler</div>
+          <div class="post-step" id="pstep2">2 Beceriler</div>
+          <div class="post-step" id="pstep3">3 Portföy</div>
+          <div class="post-step" id="pstep4">4 Fiyatlandırma</div>
+        </div>
+        <!-- Step 1 -->
+        <div class="form-step" id="fs1">
+          <div class="form-row">
+            <div class="form-group"><label>Ad Soyad *</label><input type="text" id="p_name" placeholder="Adınız Soyadınız"></div>
+            <div class="form-group"><label>Unvan *</label><input type="text" id="p_title" placeholder="Full-Stack Developer, UI Designer..."></div>
+          </div>
+          <div class="form-group"><label>Kategori *</label>
+            <select id="p_cat">
+              <option>Web Geliştirme</option><option>Tasarım & UI/UX</option><option>Mobil Uygulama</option>
+              <option>İçerik & Metin</option><option>Veri Bilimi</option><option>Dijital Pazarlama</option>
+              <option>Video & Animasyon</option><option>Diğer</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Hakkında *</label><textarea id="p_bio" rows="4" placeholder="Kendinizi tanıtın. Deneyimleriniz, uzmanlık alanlarınız..."></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>Konum</label><input type="text" id="p_loc" placeholder="İstanbul, Ankara..."></div>
+            <div class="form-group"><label>Deneyim</label>
+              <select id="p_level"><option value="Entry">Başlangıç (&lt;1 yıl)</option><option value="Intermediate">Orta (1-3 yıl)</option><option value="Expert" selected>Uzman (3+ yıl)</option></select>
+            </div>
+          </div>
+          <button class="fl-next-btn" onclick="nextStep(2)">Devam Et →</button>
+        </div>
+        <!-- Step 2 -->
+        <div class="form-step hidden" id="fs2">
+          <div class="form-group"><label>Beceriler * <small>(virgülle ayır)</small></label><input type="text" id="p_skills" placeholder="React, Node.js, Figma, Python..."></div>
+          <div class="form-group"><label>Diller</label>
+            <div class="lang-checks">
+              <label class="filter-opt"><input type="checkbox" value="Türkçe" checked> Türkçe</label>
+              <label class="filter-opt"><input type="checkbox" value="İngilizce"> İngilizce</label>
+              <label class="filter-opt"><input type="checkbox" value="Almanca"> Almanca</label>
+              <label class="filter-opt"><input type="checkbox" value="Fransızca"> Fransızca</label>
+            </div>
+          </div>
+          <div class="form-group"><label>Eğitim</label><input type="text" id="p_edu" placeholder="Üniversite / Bölüm / Yıl"></div>
+          <div class="form-group"><label>Sertifikalar</label><textarea id="p_certs" rows="2" placeholder="AWS Certified, Google Analytics, Coursera..."></textarea></div>
+          <div class="step-btns"><button class="fl-back-btn" onclick="nextStep(1)">← Geri</button><button class="fl-next-btn" onclick="nextStep(3)">Devam Et →</button></div>
+        </div>
+        <!-- Step 3 -->
+        <div class="form-step hidden" id="fs3">
+          <div class="form-group"><label>Portföy Linkleri</label>
+            <input type="url" id="p_portfolio1" placeholder="https://github.com/username" style="margin-bottom:10px">
+            <input type="url" id="p_portfolio2" placeholder="https://behance.net/username" style="margin-bottom:10px">
+            <input type="url" id="p_portfolio3" placeholder="https://linkedin.com/in/username">
+          </div>
+          <div class="form-group"><label>Tamamlanan Projeler (kısa açıklama)</label><textarea id="p_projects" rows="4" placeholder="Proje 1: E-ticaret sitesi – React + Node.js&#10;Proje 2: Mobil uygulama – Flutter&#10;..."></textarea></div>
+          <div class="step-btns"><button class="fl-back-btn" onclick="nextStep(2)">← Geri</button><button class="fl-next-btn" onclick="nextStep(4)">Devam Et →</button></div>
+        </div>
+        <!-- Step 4 -->
+        <div class="form-step hidden" id="fs4">
+          <div class="form-row">
+            <div class="form-group"><label>Saatlik Ücret (₺) *</label><input type="number" id="p_rate" placeholder="350"></div>
+            <div class="form-group"><label>Min. Proje Bütçesi (₺)</label><input type="number" id="p_minbudget" placeholder="5000"></div>
+          </div>
+          <div class="form-group"><label>Müsaitlik</label>
+            <select id="p_avail"><option>Tam zamanlı (40 saat/hafta)</option><option>Yarı zamanlı (20 saat/hafta)</option><option>Proje bazlı</option></select>
+          </div>
+          <div class="form-group"><label>Yanıt Süresi</label>
+            <select id="p_response"><option>1 saat içinde</option><option>2-4 saat</option><option>Aynı gün</option><option>1-2 gün</option></select>
+          </div>
+          <div class="step-btns"><button class="fl-back-btn" onclick="nextStep(3)">← Geri</button><button class="fl-submit-btn" onclick="submitFreelancerPost()">✓ İlanı Yayınla</button></div>
+        </div>
+      </div>
+      <!-- PREVIEW -->
+      <div class="post-preview" id="postPreview">
+        <h4>Önizleme</h4>
+        <div class="preview-card">
+          <div class="preview-avatar" id="pvAvatar">??</div>
+          <div class="preview-name" id="pvName">Adınız Soyadınız</div>
+          <div class="preview-title" id="pvTitle">Unvanınız</div>
+          <div class="preview-bio" id="pvBio">Hakkınızda yazdıklarınız burada görünecek...</div>
+          <div class="preview-skills" id="pvSkills"></div>
+          <div class="preview-rate" id="pvRate">₺0 / saat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD VIEW -->
+<section class="fl-main hidden" id="viewDashboard">
+  <div class="container">
+    <div class="dashboard-header">
+      <h2>Freelancer Paneliniz</h2>
+      <p>Tekliflerinizi, projelerinizi ve kazancınızı takip edin</p>
+    </div>
+    <div class="dash-stats">
+      <div class="dash-stat-card"><div class="dsc-icon">💼</div><div><strong>8</strong><span>Aktif Teklif</span></div></div>
+      <div class="dash-stat-card"><div class="dsc-icon">✅</div><div><strong>23</strong><span>Tamamlanan Proje</span></div></div>
+      <div class="dash-stat-card green"><div class="dsc-icon">💰</div><div><strong>₺47.500</strong><span>Toplam Kazanç</span></div></div>
+      <div class="dash-stat-card"><div class="dsc-icon">⭐</div><div><strong>4.9</strong><span>Ortalama Puan</span></div></div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h3>Son Tekliflerim</h3>
+        <div class="proposal-list">
+          <div class="proposal-item"><span class="prop-title">E-ticaret Web Sitesi</span><span class="prop-status pending">Beklemede</span></div>
+          <div class="proposal-item"><span class="prop-title">Mobil UI/UX Tasarım</span><span class="prop-status accepted">Kabul Edildi</span></div>
+          <div class="proposal-item"><span class="prop-title">Data Dashboard</span><span class="prop-status pending">Beklemede</span></div>
+          <div class="proposal-item"><span class="prop-title">Logo Tasarımı</span><span class="prop-status rejected">Reddedildi</span></div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <h3>Aktif Projelerim</h3>
+        <div class="project-list">
+          <div class="project-item">
+            <div><strong>Flutter Mobil Uygulama</strong><small>AppVentures • Teslim: 30 gün</small></div>
+            <div class="project-progress"><div class="progress-bar" style="width:60%"></div><span>60%</span></div>
+          </div>
+          <div class="project-item">
+            <div><strong>React Dashboard</strong><small>Analytics Pro • Teslim: 14 gün</small></div>
+            <div class="project-progress"><div class="progress-bar" style="width:85%"></div><span>85%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <h3>Son Yorumlar</h3>
+        <div class="review-list">
+          <div class="review-item"><div class="review-stars">★★★★★</div><p>"Mükemmel iş, kesinlikle tekrar çalışacağız."</p><small>Murat K.</small></div>
+          <div class="review-item"><div class="review-stars">★★★★★</div><p>"Zamanında teslim, kaliteli çalışma."</p><small>Ayşe D.</small></div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <h3>Mesajlar</h3>
+        <div class="msg-list">
+          <div class="msg-item unread"><div class="msg-from">Fatma Kılıç</div><div class="msg-text">Dashboard projesinde bir güncelleme var mı?</div><div class="msg-time">10 dk</div></div>
+          <div class="msg-item"><div class="msg-from">Berk Yıldız</div><div class="msg-text">Logo dosyalarını alabilir miyim?</div><div class="msg-time">2 saat</div></div>
+          <div class="msg-item"><div class="msg-from">StartupHub</div><div class="msg-text">Teklif için teşekkürler, inceliyoruz.</div><div class="msg-time">1 gün</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREELANCER DETAIL MODAL -->
+<div class="modal-overlay" id="flDetailModal">
+  <div class="modal fl-detail-modal">
+    <button class="modal-close" onclick="closeModal('flDetailModal')">✕</button>
+    <div id="flDetailContent"></div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL (FL) -->
+<div class="modal-overlay" id="flLoginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('flLoginModal')">✕</button>
+    <h2 class="modal-title">Freelancer Girişi</h2>
+    <p class="modal-sub">Hesabınla devam et</p>
+    <button class="google-btn fl-google-btn" onclick="handleFLLogin()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google ile Giriş Yap
+    </button>
+    <p class="modal-footer-text">İşveren misiniz? <a href="employer.html">İşveren Portalı →</a></p>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/freelancer.js"></script>
+</body>
+</html>
