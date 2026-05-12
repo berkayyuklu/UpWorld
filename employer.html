@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPWORLD – İşveren Portalı</title>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/employer.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="em-theme">
+
+<!-- NAVBAR -->
+<nav class="navbar em-navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="url(#emnav)"/>
+          <path d="M8 20 L13 11 L16 17 L19 13 L24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="24" cy="10" r="3" fill="#FFD600"/>
+          <defs><linearGradient id="emnav" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#0D0D0D"/><stop offset="100%" stop-color="#FFD600"/></linearGradient></defs>
+        </svg>
+      </div>
+      <span class="logo-text">UP<span>WORLD</span></span>
+    </a>
+    <div class="em-nav-tabs">
+      <button class="em-nav-tab active" onclick="setEMView('browse')">İş İlanları</button>
+      <button class="em-nav-tab" onclick="setEMView('post')">Görev Ver</button>
+      <button class="em-nav-tab" onclick="setEMView('dashboard')">Panelim</button>
+    </div>
+    <div class="nav-actions" id="emNavActions">
+      <a href="freelancer.html" class="em-switch-btn">Freelancer Portalı →</a>
+      <button class="em-login-btn" onclick="openModal('emLoginModal')">Giriş / Üye Ol</button>
+    </div>
+  </div>
+</nav>
+
+<!-- EM HERO -->
+<section class="em-hero">
+  <div class="container">
+    <div class="em-hero-content">
+      <div class="em-hero-badge">🟡 İşveren Portalı</div>
+      <h1>En İyi Freelancer'ı<br><span>Tek Tıkla Bul</span></h1>
+      <p>12.000+ doğrulanmış freelancer arasından filtrele. Güvenli ödeme, garanti sonuç.</p>
+      <div class="em-search-bar">
+        <select id="emCatFilter" onchange="filterJobs()">
+          <option value="">Tüm Kategoriler</option>
+          <option>Web Geliştirme</option>
+          <option>Tasarım</option>
+          <option>Mobil Uygulama</option>
+          <option>İçerik</option>
+          <option>Veri Bilimi</option>
+        </select>
+        <input type="text" id="emSearchInput" placeholder="Proje türü veya beceri ara..." onkeyup="filterJobs()">
+        <button onclick="filterJobs()">Ara</button>
+      </div>
+    </div>
+    <div class="em-hero-stats">
+      <div class="em-stat"><span>8K+</span><small>Proje Tamamlandı</small></div>
+      <div class="em-stat"><span>₺2.4M+</span><small>Ödenen Toplam</small></div>
+      <div class="em-stat"><span>48 saat</span><small>Ort. Eşleşme</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- BROWSE JOBS VIEW -->
+<section class="em-main" id="emViewBrowse">
+  <div class="container">
+    <div class="em-layout">
+      <!-- FILTERS -->
+      <aside class="em-sidebar">
+        <div class="em-filter-card">
+          <h3>Filtreler</h3>
+          <div class="filter-group">
+            <label>Kategori</label>
+            <div class="filter-options">
+              <label class="filter-opt"><input type="checkbox" onchange="filterJobs()"> Web Geliştirme</label>
+              <label class="filter-opt"><input type="checkbox" onchange="filterJobs()"> Tasarım</label>
+              <label class="filter-opt"><input type="checkbox" onchange="filterJobs()"> Mobil</label>
+              <label class="filter-opt"><input type="checkbox" onchange="filterJobs()"> İçerik</label>
+              <label class="filter-opt"><input type="checkbox" onchange="filterJobs()"> Veri Bilimi</label>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Bütçe Türü</label>
+            <div class="filter-options">
+              <label class="filter-opt"><input type="radio" name="budgetType" value=""> Tümü</label>
+              <label class="filter-opt"><input type="radio" name="budgetType" value="fixed"> Sabit Fiyat</label>
+              <label class="filter-opt"><input type="radio" name="budgetType" value="hourly"> Saatlik</label>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>Deneyim</label>
+            <select id="emLevel" onchange="filterJobs()">
+              <option value="">Tümü</option>
+              <option value="Expert">Uzman</option>
+              <option value="Intermediate">Orta</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-opt"><input type="checkbox" id="urgentFilter" onchange="filterJobs()"> Sadece Acil İlanlar</label>
+            <label class="filter-opt"><input type="checkbox" id="verifiedFilter" onchange="filterJobs()"> Doğrulanmış İşverenler</label>
+          </div>
+          <button class="em-clear-btn" onclick="clearEMFilters()">Filtreleri Temizle</button>
+        </div>
+
+        <!-- QUICK POST -->
+        <div class="quick-post-card">
+          <h4>Hızlı İlan Ver</h4>
+          <p>2 dakikada projenizi yayınlayın, teklifler gelsin.</p>
+          <button class="em-post-quick-btn" onclick="setEMView('post')">+ Görev Yayınla</button>
+        </div>
+      </aside>
+
+      <!-- JOB LISTINGS -->
+      <div class="em-listings">
+        <div class="em-list-header">
+          <span id="emResultCount">6 ilan bulundu</span>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="em-view-toggle active" onclick="setJobView('list',this)">≡ Liste</button>
+            <button class="em-view-toggle" onclick="setJobView('grid',this)">⊞ Grid</button>
+            <select id="emSort" onchange="sortJobs()">
+              <option value="newest">En Yeni</option>
+              <option value="budget-desc">Bütçe: Yüksekten</option>
+              <option value="proposals">En Az Teklif</option>
+            </select>
+          </div>
+        </div>
+        <div class="em-jobs-list" id="emJobsList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST JOB VIEW -->
+<section class="em-main hidden" id="emViewPost">
+  <div class="container">
+    <div class="em-post-layout">
+      <div class="em-post-card">
+        <h2>Görev Yayınla</h2>
+        <p class="em-post-sub">Projenizi detaylı anlat, doğru freelancer'ı çek</p>
+        <div class="em-post-steps">
+          <div class="em-post-step active" id="epstep1">1 Proje Detayları</div>
+          <div class="em-post-step" id="epstep2">2 Gereksinimler</div>
+          <div class="em-post-step" id="epstep3">3 Bütçe & Süre</div>
+        </div>
+        <!-- Step 1 -->
+        <div class="em-form-step" id="efs1">
+          <div class="form-group"><label>Proje Başlığı *</label><input type="text" id="ep_title" placeholder="Örn: React ile E-ticaret Sitesi Geliştirme"></div>
+          <div class="form-group"><label>Kategori *</label>
+            <select id="ep_cat">
+              <option>Web Geliştirme</option><option>Tasarım & UI/UX</option><option>Mobil Uygulama</option>
+              <option>İçerik & Metin</option><option>Veri Bilimi</option><option>Dijital Pazarlama</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Proje Açıklaması *</label><textarea id="ep_desc" rows="6" placeholder="Projenizi detaylı açıklayın. Ne yapılmasını istiyorsunuz? Beklentileriniz nelerdir? Varsa referans siteler/linkler ekleyin."></textarea></div>
+          <div class="form-group"><label>Deneyim Seviyesi</label>
+            <select id="ep_level"><option>Uzman (3+ yıl)</option><option>Orta Seviye (1-3 yıl)</option><option>Başlangıç</option></select>
+          </div>
+          <button class="em-next-btn" onclick="nextEMStep(2)">Devam Et →</button>
+        </div>
+        <!-- Step 2 -->
+        <div class="em-form-step hidden" id="efs2">
+          <div class="form-group"><label>Gerekli Beceriler * <small>(virgülle ayır)</small></label><input type="text" id="ep_skills" placeholder="React, Node.js, PostgreSQL..."></div>
+          <div class="form-group"><label>Çalışma Yeri</label>
+            <select id="ep_location"><option>Uzaktan</option><option>Yerinde (İstanbul)</option><option>Hibrit</option></select>
+          </div>
+          <div class="form-group"><label>Dosya Ekle <small>(varsa)</small></label>
+            <div class="file-drop" onclick="showToast('Dosya yükleme yakında aktif olacak','info')">📎 Dosya eklemek için tıklayın veya sürükleyin</div>
+          </div>
+          <div class="form-group"><label>Gizlilik Anlaşması</label>
+            <label class="filter-opt"><input type="checkbox" id="ep_nda"> Bu proje için NDA (gizlilik anlaşması) gerekiyor</label>
+          </div>
+          <div class="step-btns"><button class="em-back-btn" onclick="nextEMStep(1)">← Geri</button><button class="em-next-btn" onclick="nextEMStep(3)">Devam Et →</button></div>
+        </div>
+        <!-- Step 3 -->
+        <div class="em-form-step hidden" id="efs3">
+          <div class="form-group"><label>Bütçe Türü</label>
+            <div class="budget-type-btns">
+              <button class="budget-type-btn active" id="btFixed" onclick="selectBudgetType('fixed')">Sabit Fiyat</button>
+              <button class="budget-type-btn" id="btHourly" onclick="selectBudgetType('hourly')">Saatlik Ücret</button>
+              <button class="budget-type-btn" id="btUnit" onclick="selectBudgetType('unit')">Birim Başı</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Min Bütçe (₺)</label><input type="number" id="ep_budgetMin" placeholder="5000"></div>
+            <div class="form-group"><label>Max Bütçe (₺)</label><input type="number" id="ep_budgetMax" placeholder="10000"></div>
+          </div>
+          <div class="form-group"><label>Teslim Süresi</label>
+            <select id="ep_deadline"><option>1 hafta</option><option>2 hafta</option><option>1 ay</option><option>2 ay</option><option>3 ay+</option><option>Sürekli</option></select>
+          </div>
+          <div class="form-group">
+            <label class="filter-opt"><input type="checkbox" id="ep_urgent"> Acil ilan (ek ücret yok)</label>
+            <label class="filter-opt" style="margin-top:8px"><input type="checkbox" id="ep_milestone"> Milestone ödemeleri (proje aşamalarına böl)</label>
+          </div>
+          <div class="step-btns"><button class="em-back-btn" onclick="nextEMStep(2)">← Geri</button><button class="em-submit-btn" onclick="submitJob()">🚀 İlanı Yayınla</button></div>
+        </div>
+      </div>
+      <!-- TIPS -->
+      <div class="em-post-tips">
+        <h4>💡 İpuçları</h4>
+        <div class="tip-item">✓ <strong>Net başlık</strong> kullan. "React Developer" yerine "E-ticaret için React Developer"</div>
+        <div class="tip-item">✓ <strong>Bütçe belirt.</strong> Bütçesi belli ilanlar 3x daha fazla teklif alır.</div>
+        <div class="tip-item">✓ <strong>Detaylı açıkla.</strong> Ne istediğini ve ne istemediğini yaz.</div>
+        <div class="tip-item">✓ <strong>Referans ekle.</strong> Beğendiğin sitelerin linklerini paylaş.</div>
+        <div class="em-guarantee">
+          <div class="em-guarantee-icon">🛡️</div>
+          <div><strong>Güvenli Ödeme</strong><p>Paranız işi onaylayana kadar güvende.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMPLOYER DASHBOARD -->
+<section class="em-main hidden" id="emViewDashboard">
+  <div class="container">
+    <div class="em-dashboard-header">
+      <h2>İşveren Paneliniz</h2>
+      <button class="em-post-btn" onclick="setEMView('post')">+ Yeni Görev</button>
+    </div>
+    <div class="em-dash-stats">
+      <div class="em-dash-stat"><div class="em-dsc-icon">📋</div><div><strong>4</strong><span>Aktif İlan</span></div></div>
+      <div class="em-dash-stat"><div class="em-dsc-icon">👥</div><div><strong>47</strong><span>Toplam Teklif</span></div></div>
+      <div class="em-dash-stat yellow"><div class="em-dsc-icon">✅</div><div><strong>12</strong><span>Tamamlanan</span></div></div>
+      <div class="em-dash-stat"><div class="em-dsc-icon">💸</div><div><strong>₺128K</strong><span>Harcanan</span></div></div>
+    </div>
+    <div class="em-dash-grid">
+      <div class="em-dash-card">
+        <h3>Aktif İlanlarım</h3>
+        <div class="em-job-list">
+          <div class="em-job-item">
+            <div><strong>E-ticaret Web Sitesi</strong><small>12 teklif · 2 gün önce</small></div>
+            <div class="em-job-actions"><button class="em-view-proposals" onclick="showToast('Teklifler yükleniyor...','info')">12 Teklifi Gör</button><span class="em-job-status active-s">Aktif</span></div>
+          </div>
+          <div class="em-job-item">
+            <div><strong>Data Dashboard</strong><small>6 teklif · 3 saat önce</small></div>
+            <div class="em-job-actions"><button class="em-view-proposals" onclick="showToast('Teklifler yükleniyor...','info')">6 Teklifi Gör</button><span class="em-job-status active-s">Aktif</span></div>
+          </div>
+          <div class="em-job-item">
+            <div><strong>Logo Tasarımı</strong><small>31 teklif · 6 saat önce</small></div>
+            <div class="em-job-actions"><button class="em-view-proposals" onclick="showToast('Teklifler yükleniyor...','info')">31 Teklifi Gör</button><span class="em-job-status active-s">Aktif</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="em-dash-card">
+        <h3>Devam Eden Projeler</h3>
+        <div class="em-proj-list">
+          <div class="em-proj-item">
+            <div class="em-proj-dev"><div class="em-proj-avatar" style="background:#00C896">AY</div><div><strong>Ahmet Yılmaz</strong><small>Flutter Uygulama · 30 gün kaldı</small></div></div>
+            <div class="em-proj-prog"><div class="em-progress-bar" style="width:60%"></div><span>60%</span></div>
+          </div>
+          <div class="em-proj-item">
+            <div class="em-proj-dev"><div class="em-proj-avatar" style="background:#4F46E5">SK</div><div><strong>Selin Kaya</strong><small>UI/UX Tasarım · 5 gün kaldı</small></div></div>
+            <div class="em-proj-prog"><div class="em-progress-bar" style="width:90%"></div><span>90%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="em-dash-card">
+        <h3>Gelen Mesajlar</h3>
+        <div class="em-msg-list">
+          <div class="em-msg-item unread"><div class="em-msg-from">Ahmet Yılmaz</div><div class="em-msg-text">Backend API entegrasyonunda bir sorum var.</div><div class="em-msg-time">5 dk</div></div>
+          <div class="em-msg-item"><div class="em-msg-from">Selin Kaya</div><div class="em-msg-text">Son tasarım dosyasını gönderdim.</div><div class="em-msg-time">1 saat</div></div>
+          <div class="em-msg-item"><div class="em-msg-from">Mehmet Demir</div><div class="em-msg-text">Teklif için uygun musunuz?</div><div class="em-msg-time">3 saat</div></div>
+        </div>
+      </div>
+      <div class="em-dash-card">
+        <h3>Önerilen Freelancer'lar</h3>
+        <div class="em-suggest-list">
+          <div class="em-suggest-item" onclick="window.location='freelancer.html?id=1'">
+            <div class="em-sug-avatar" style="background:#00C896">AY</div>
+            <div><strong>Ahmet Yılmaz</strong><small>Full-Stack · ⭐4.9 · 450₺/s</small></div>
+            <button class="em-sug-btn">Profil</button>
+          </div>
+          <div class="em-suggest-item" onclick="window.location='freelancer.html?id=2'">
+            <div class="em-sug-avatar" style="background:#4F46E5">SK</div>
+            <div><strong>Selin Kaya</strong><small>UI/UX · ⭐4.8 · 350₺/s</small></div>
+            <button class="em-sug-btn">Profil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB DETAIL MODAL -->
+<div class="modal-overlay" id="emDetailModal">
+  <div class="modal em-detail-modal">
+    <button class="modal-close" onclick="closeModal('emDetailModal')">✕</button>
+    <div id="emDetailContent"></div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL EM -->
+<div class="modal-overlay" id="emLoginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('emLoginModal')">✕</button>
+    <h2 class="modal-title">İşveren Girişi</h2>
+    <p class="modal-sub">Hesabınla devam et</p>
+    <button class="google-btn em-google-btn" onclick="handleEMLogin()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google ile Giriş Yap
+    </button>
+    <p class="modal-footer-text">Freelancer mısınız? <a href="freelancer.html">Freelancer Portalı →</a></p>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/employer.js"></script>
+</body>
+</html>
